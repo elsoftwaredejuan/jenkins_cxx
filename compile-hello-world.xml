@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.14.0">
+      <projectUrl>https://github.com/elsoftwaredejuan/yet-another-hello-world.git/</projectUrl>
+    </com.coravy.hudson.plugins.github.GithubProjectProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.0">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>https://github.com/elsoftwaredejuan/yet-another-hello-world.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>yet-another-hello-world</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># call cmake and compile
+cmake yet-another-hello-world
+make</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># static analysis
+cppcheck --xml --xml-version=2 --force . 2&gt;cppcheck.xml</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>./build/runUnitTests</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.cppcheck.CppcheckPublisher plugin="cppcheck@1.21">
+      <cppcheckConfig>
+        <pattern>cppcheck.xml</pattern>
+        <ignoreBlankFiles>false</ignoreBlankFiles>
+        <allowNoReport>false</allowNoReport>
+        <configSeverityEvaluation>
+          <threshold></threshold>
+          <newThreshold></newThreshold>
+          <failureThreshold></failureThreshold>
+          <newFailureThreshold></newFailureThreshold>
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <severityError>true</severityError>
+          <severityWarning>true</severityWarning>
+          <severityStyle>true</severityStyle>
+          <severityPerformance>true</severityPerformance>
+          <severityInformation>true</severityInformation>
+          <severityNoCategory>true</severityNoCategory>
+          <severityPortability>true</severityPortability>
+        </configSeverityEvaluation>
+        <configGraph>
+          <xSize>500</xSize>
+          <ySize>200</ySize>
+          <numBuildsInGraph>0</numBuildsInGraph>
+          <displayAllErrors>true</displayAllErrors>
+          <displayErrorSeverity>false</displayErrorSeverity>
+          <displayWarningSeverity>false</displayWarningSeverity>
+          <displayStyleSeverity>false</displayStyleSeverity>
+          <displayPerformanceSeverity>false</displayPerformanceSeverity>
+          <displayInformationSeverity>false</displayInformationSeverity>
+          <displayNoCategorySeverity>false</displayNoCategorySeverity>
+          <displayPortabilitySeverity>false</displayPortabilitySeverity>
+        </configGraph>
+      </cppcheckConfig>
+    </org.jenkinsci.plugins.cppcheck.CppcheckPublisher>
+  </publishers>
+  <buildWrappers/>
+</project>
