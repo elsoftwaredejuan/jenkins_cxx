@@ -6,7 +6,7 @@ This is a fully functional Jenkins server, based on the Long Term Support releas
 
 # How to use this image
 ```console
-docker run -p 8080:8080 -p 50000:50000 -p 443:443 -i -t  elsoftwaredejuan/jenkins_cxx:v1 jenkins.sh
+docker run -p 8080:8080 -p 50000:50000 -p 443:443 -i -t elsoftwaredejuan/jenkins_cxx:v1 jenkins.sh
 ```
 This will store the workspace in /var/jenkins_home. All Jenkins data lives in there - including plugins and configuration. You will probably want to make that a persistent volume (recommended):
 
