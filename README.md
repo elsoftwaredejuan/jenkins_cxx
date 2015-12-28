@@ -23,5 +23,5 @@ docker run -p 8080:8080 -p 50000:50000 -p 443:443 -v /your/home:/var/jenkins_hom
  
 # Extra Stuff
  * setup-google-test.xml: Jenkins job for compiling and installing google test.
- * compile-hello-world.xml: Jenkins' job for testing all c++ infrastructure and for showing some tips for how to use all this stuff.
+ * compile-hello-world.xml: Jenkins job for testing all c++ infrastructure and for showing some tips for how to use all this stuff.
  
